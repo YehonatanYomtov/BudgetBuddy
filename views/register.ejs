@@ -1,0 +1,23 @@
+<!-- <%- include('layouts/layout', { title: 'Register - BudgetBuddy', body: `
+<h1>-- Register --</h1>
+<h2>dsa dsa dsa d</h2>
+<h3>das dsad sadsa dsa</h3>
+` }) %> -->
+
+<h1>-- Register --</h1>
+<h2><%= heading2 %></h2>
+<h3><%= heading3 %></h3>
+<div class="register-form">
+  <form action="/users/register" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required />
+
+    <button type="submit">Register</button>
+  </form>
+</div>
