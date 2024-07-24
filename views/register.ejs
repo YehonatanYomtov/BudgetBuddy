@@ -1,12 +1,7 @@
-<!-- <%- include('layouts/layout', { title: 'Register - BudgetBuddy', body: `
-<h1>-- Register --</h1>
-<h2>dsa dsa dsa d</h2>
-<h3>das dsad sadsa dsa</h3>
-` }) %> -->
+<%- include('./partials/navbar.ejs') %>
 
-<h1>-- Register --</h1>
-<h2><%= heading2 %></h2>
-<h3><%= heading3 %></h3>
+<h1>-- <%= title %> --</h1>
+
 <div class="register-form">
   <form action="/users/register" method="POST">
     <label for="username">Username:</label>
@@ -21,3 +16,5 @@
     <button type="submit">Register</button>
   </form>
 </div>
+
+<%-include('./partials/footer.ejs') %>
