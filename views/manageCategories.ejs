@@ -1,4 +1,33 @@
-<%- include('./partials/navbar.ejs') %>
-<h1><%= title %></h1>
-<p><%= text %></p>
-<%-include('./partials/footer.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <h1><%= title %></h1>
+
+    <form id="addCategoryForm" action="/categories" method="POST">
+        <input type="hidden" name="user_id" value="<%= user_id %>" />
+        <label for="categoryName">Add New Category:</label>
+        <input type="text" id="categoryName" name="name" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>Existing Categories:</h2>
+    <ul id="categoriesList">
+        <% categories.forEach(category => { %>
+            <li>
+                <%= category.name %>
+                <form action="/categories/delete/<%= category.id %>" method="POST" style="display:inline;">
+                    <input type="hidden" name="user_id" value="<%= user_id %>" />
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+
+    <script src="/js/categories.js"></script>
+</body>
+</html>
