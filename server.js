@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const session = require("express-session");
 
 const app = express();
 
@@ -15,6 +16,15 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Session setup
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 // Serve static files
 app.use("/public", express.static(path.join(__dirname, "public")));
 
@@ -27,11 +37,20 @@ app.use("/users", userRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/transactions", transactionRoutes);
 
-app.get("/", (req, res) => {
-  res.render("login.ejs", {
-    title: "Login - BudgetBuddy",
+// Root route with authentication check
+const { checkUser } = require("./middlewares/authMiddleware.js");
+const { register, login } = require("./controllers/UserController.js");
+
+app.get("/", checkUser, (req, res) => {
+  res.render("index", {
+    user: req.session.user,
   });
 });
+
+app.post("/register", register);
+app.get("/register", (req, res) => res.render("register"));
+app.post("/login", login);
+app.get("/login", (req, res) => res.render("login"));
 
 // Server setup
 const port = process.env.PORT || 3000;

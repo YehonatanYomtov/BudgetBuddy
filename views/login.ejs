@@ -1,3 +1,18 @@
-<%- include('layouts/layout', { title: 'Login - BudgetBuddy', body: `
+<%- include('./partials/navbar.ejs') %>
 <h1>-- Login --</h1>
-` }) %>
+
+<div class="login-form form-container">
+  <form>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required />
+
+    <button type="submit">Login</button>
+  </form>
+
+  <div>Don't have an account? <a href="/register">Register here</a></div>
+</div>
+
+<%-include('./partials/footer.ejs') %>
