@@ -3,10 +3,16 @@ const cors = require("cors");
 const path = require("path");
 const session = require("express-session");
 
+require("dotenv").config();
+
+// Express setup
 const app = express();
 
 // Cors setup
 app.use(cors());
+
+// Static files setup
+app.use("/", express.static(path.join(__dirname, "public")));
 
 // EJS setup
 app.set("view engine", "ejs");
@@ -21,36 +27,38 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 3600000, // Session expiration time (1 hour)
+    },
   })
 );
 
-// Serve static files
-app.use("/public", express.static(path.join(__dirname, "public")));
+// Public routes (no authentication required)
+const { register, login, logout } = require("./controllers/UserController.js");
+app.get("/register", (req, res) => res.render("register"));
+app.get("/login", (req, res) => res.render("login", { error: "" }));
+app.post("/register", register);
+app.post("/login", login);
+app.get("/logout", logout);
 
-// Routes setup
+// Apply authentication middleware only to protected routes
+const { checkUser } = require("./middlewares/authMiddleware.js");
+
+// Protected routes
 const userRoutes = require("./routes/userRoutes.js");
-const categoryRoutes = require("./routes/categoryRoutes");
-const transactionRoutes = require("./routes/transactionRoutes");
+const categoryRoutes = require("./routes/categoryRoutes.js");
+const transactionRoutes = require("./routes/transactionRoutes.js");
+
+app.use(checkUser);
 
 app.use("/users", userRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/transactions", transactionRoutes);
 
-// Root route with authentication check
-const { checkUser } = require("./middlewares/authMiddleware.js");
-const { register, login } = require("./controllers/UserController.js");
-
-app.get("/", checkUser, (req, res) => {
-  res.render("index", {
-    user: req.session.user,
-  });
-});
-
-app.post("/register", register);
-app.get("/register", (req, res) => res.render("register"));
-app.post("/login", login);
-app.get("/login", (req, res) => res.render("login"));
+// Home page (protected)
+app.get("/", (req, res) => res.render("index", { user: req.session.user }));
 
 // Server setup
 const port = process.env.PORT || 3000;

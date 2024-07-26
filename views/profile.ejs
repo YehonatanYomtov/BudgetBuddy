@@ -1,3 +1,27 @@
-<%- include('layouts/layout', { title: 'Profile - BudgetBuddy', body: `
+<%- include('./partials/navbar.ejs', { user: user }) %>
+
 <h1>-- Profile --</h1>
-` }) %>
+
+<p>Username: <%= user.username %></p>
+<p>Email: <%= user.email %></p>
+<p>Member since: <%= user.created_at %></p>
+
+<button onclick="logout(event)">Logout</button>
+<button><a href="/categories/user/<%= user.id %>">Manage Categories</a></button>
+<button><a href="">View Transactions</a></button>
+<button><a href="">View Budget Summary</a></button>
+
+<script>
+  async function logout(e) {
+    try {
+      const res = await fetch("/logout");
+
+      if (res.ok) {
+        window.location.href = "/login";
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+</script>
+<%-include('./partials/footer.ejs') %>

@@ -7,20 +7,18 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     />
-    <link rel="stylesheet" href="../../public/css/styles.css" />
-    <script src="../../public/js/scripts.js" defer></script>
-    <title>Home</title>
+    <link rel="stylesheet" href="/css/global-styles.css" />
+    <%- styles || '' %>
+    <title><%= title %></title>
   </head>
   <body>
-    <!-- Navbar -->
-    <!-- <%- include('../partials/navbar') %> -->
-
-    <div class="content">
+    <main id="main">
       <!-- All other files.ejs will be inserted here -->
       <%- body %>
-    </div>
+    </main>
 
-    <!-- Footer -->
-    <!-- <%-include('../partials/footer') %> -->
+    <script src="/js/global-script.js"></script>
+
+    <%- scripts || '' %>
   </body>
 </html>

@@ -1,18 +1,29 @@
-<%- include('./partials/navbar.ejs') %>
-<h1>-- Login --</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/login.css" />
+    <title>Register</title>
+  </head>
+  <body>
+    <h1>Login</h1>
 
-<div class="login-form form-container">
-  <form>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required />
+    <form id="login-form" class="form-container">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
 
-    <button type="submit">Login</button>
-  </form>
+      <button type="submit">Login</button>
+    </form>
 
-  <div>Don't have an account? <a href="/register">Register here</a></div>
-</div>
+    <div>Don't have an account? <a href="/register">Register here</a></div>
 
-<%-include('./partials/footer.ejs') %>
+    <div id="response-display"><%= error %></div>
+
+    <%- include('./partials/footer.ejs') %>
+    <script src="/js/login.js"></script>
+  </body>
+</html>
