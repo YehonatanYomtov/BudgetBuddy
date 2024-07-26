@@ -16,7 +16,7 @@ async function _findUserByUsername(username) {
   try {
     const user = await db("users")
       .where({ username })
-      .select("username", "email", "password_hash")
+      .select("id", "username", "email", "password_hash")
       .first();
 
     return user;
@@ -98,6 +98,20 @@ async function _deleteAUser(id) {
   }
 }
 
+async function _getProfileInfo(id) {
+  try {
+    const user = await db("users")
+      .where({ id })
+      .select("id", "username", "email", "created_at")
+      .first();
+
+    return user;
+  } catch (err) {
+    console.error(err);
+    throw err.message;
+  }
+}
+
 module.exports = {
   _register,
   _findUserByUsername,
@@ -106,4 +120,5 @@ module.exports = {
   _getAUser,
   _updateAUser,
   _deleteAUser,
+  _getProfileInfo,
 };

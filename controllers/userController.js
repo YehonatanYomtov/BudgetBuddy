@@ -8,6 +8,7 @@ const {
   _getAUser,
   _updateAUser,
   _deleteAUser,
+  _getProfileInfo,
 } = require("../models/userModel.js");
 
 //! Add confirm password (to lower case etc.)
@@ -17,7 +18,6 @@ const {
 async function register(req, res) {
   const { username, email, password } = req.body;
 
-  console.log(username);
   if (!username || !email || !password) {
     return res.status(400).render("register", {
       error: "All fields are required.",
@@ -40,17 +40,15 @@ async function register(req, res) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await _register({
+    const user = await _register({
       username,
       email,
       password_hash: hashedPassword,
     });
 
-    res.status(201).render("index", {
-      message: "User registered successfully",
-      user: req.body,
-      connectionWay: "register",
-    });
+    req.session.user = user[0];
+
+    res.status(201).redirect("/");
   } catch (err) {
     console.error(`Error registering user: ${err.message}`);
     res.status(500).render("register", {
@@ -68,19 +66,17 @@ async function login(req, res) {
     if (user && (await bcrypt.compare(password, user.password_hash))) {
       req.session.user = user;
 
-      res.status(200).render("index", {
-        message: "User logged in successfully",
-        user,
-        connectionWay: "login",
+      res.status(200).json({
+        message: "User logged in successfully.",
       });
     } else {
-      res.status(400).render("login", {
+      res.status(400).json({
         error: "Invalid username or password",
       });
     }
   } catch (err) {
     console.error(err);
-    res.status(500).render("login", {
+    res.status(500).json({
       error: "Internal Server Error.",
     });
   }
@@ -153,6 +149,41 @@ async function deleteAUser(req, res) {
   }
 }
 
+async function getProfileInfo(req, res) {
+  const { id } = req.params;
+
+  try {
+    const userInfo = await _getProfileInfo(id);
+
+    if (!userInfo) {
+      return res.status(404).json({ error: "Profile doesn't exist." });
+    }
+
+    const createdAt = new Date(userInfo.created_at);
+    const year = createdAt.getFullYear();
+    const month = String(createdAt.getMonth() + 1).padStart(2, "0");
+    const day = String(createdAt.getDate()).padStart(2, "0");
+
+    const user = { ...userInfo, created_at: `${day}-${month}-${year}` };
+
+    res.status(200).render("profile", { user });
+  } catch (err) {
+    console.error(
+      `Error fetching profile info of current user: ${err.message}`
+    );
+    res.status(500).json({ error: "Internal Server Error." });
+  }
+}
+
+async function logout(req, res) {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ error: "Unable to log out." });
+    }
+    res.redirect("/login");
+  });
+}
+
 module.exports = {
   register,
   login,
@@ -160,4 +191,6 @@ module.exports = {
   getAUser,
   updateAUser,
   deleteAUser,
+  getProfileInfo,
+  logout,
 };

@@ -1,22 +1,33 @@
-<%- include('./partials/navbar.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/register.css" />
+    <title>Register</title>
+  </head>
+  <body>
+    <h1>Register</h1>
 
-<h1>-- Register --</h1>
+    <form id="register-form" class="form-container">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
 
-<div class="register-form form-container">
-  <form>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required />
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required />
+      <button type="submit">Register</button>
+    </form>
 
-    <button type="submit">Register</button>
-  </form>
+    <div>Already have an account? <a href="/login">Login here</a></div>
 
-  <div>Already have an account? <a href="/login">Login here</a></div>
-</div>
+    <div id="response-display"></div>
 
-<%-include('./partials/footer.ejs') %>
+    <%-include('./partials/footer.ejs') %>
+
+    <script src="/js/register.js"></script>
+  </body>
+</html>
