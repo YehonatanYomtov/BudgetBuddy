@@ -37,6 +37,16 @@ app.use(
   })
 );
 
+// Global middleware to set user in locals
+app.use((req, res, next) => {
+  if (req.session && req.session.user) {
+    res.locals.user = req.session.user;
+  } else {
+    res.locals.user = null;
+  }
+  next();
+});
+
 // Public routes (no authentication required)
 const { register, login, logout } = require("./controllers/UserController.js");
 app.get("/register", (req, res) => res.render("register"));
@@ -51,7 +61,7 @@ const { checkUser } = require("./middlewares/authMiddleware.js");
 // Protected routes
 const userRoutes = require("./routes/userRoutes.js");
 const categoryRoutes = require("./routes/categoryRoutes.js");
-const transactionRoutes = require("./routes/transactionRoutes.js")
+const transactionRoutes = require("./routes/transactionRoutes.js");
 const budgetRoutes = require("./routes/budgetRoutes.js");
 
 // Protection for all proceeding routes
@@ -66,7 +76,7 @@ app.use("/budget", budgetRoutes);
 app.get("/", (req, res) => res.render("index", { user: req.session.user }));
 
 // API key for currency conversion (protected)
-app.get('/api/get-api-key', (req, res) => {
+app.get("/api/get-api-key", (req, res) => {
   res.json({ apiKey: process.env.EXCHANGE_RATE_API_KEY });
 });
 

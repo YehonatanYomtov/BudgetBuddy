@@ -13,25 +13,27 @@
     <title>Register</title>
   </head>
   <body>
-    <h1>Register</h1>
+    <main>
+      <h1>Register</h1>
 
-    <form id="register-form" class="form-container">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required />
+      <form id="register-form" class="form-container">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required />
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required />
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
 
-      <button id="submit-btn" type="submit">Register</button>
-    </form>
+        <button id="submit-btn" type="submit">Register</button>
+      </form>
 
-    <div>Already have an account? <a href="/login">Login here</a></div>
+      <div>Already have an account? <a href="/login">Login here</a></div>
 
-    <div id="response-display"></div>
+      <div id="response-display"></div>
+    </main>
 
-    <%-include('./partials/footer.ejs') %>
+    <footer><%-include('./partials/footer.ejs') %></footer>
   </body>
 </html>

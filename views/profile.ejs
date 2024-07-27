@@ -3,35 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
     <link rel="stylesheet" href="/css/global-styles.css" />
     <link rel="stylesheet" href="/css/profile.css" />
     <title>Profile</title>
   </head>
   <body>
-    <%- include('./partials/navbar.ejs') %> <%-
-    include('./partials/backButton.ejs') %>
+    <header><%- include('./partials/navbar.ejs') %></header>
+    <main>
+      <%- include('./partials/backButton.ejs') %>
 
-    <h1>Profile</h1>
+      <h1>Profile</h1>
 
-    <p><span>Username: </span> <%= user.username %></p>
-    <p><span>Email: </span> <%= user.email %></p>
-    <p><span>Member since: </span> <%= user.created_at %></p>
+      <p><span>Username: </span> <%= user.username %></p>
+      <p><span>Email: </span> <%= user.email %></p>
+      <p><span>Member since: </span> <%= user.created_at %></p>
 
-    <button onclick="logout(event)">Logout</button>
+      <button onclick="logout(event)">Logout</button>
 
-    <button>
-      <a href="/categories/user/<%= user.id %>">Manage Categories</a>
-    </button>
+      <button>
+        <a href="/categories/user/<%= user.id %>">Manage Categories</a>
+      </button>
 
-    <button>
-      <a href="/transactions/user/<%= user.id %>">View Transactions</a>
-    </button>
+      <button>
+        <a href="/transactions/user/<%= user.id %>">View Transactions</a>
+      </button>
 
-    <button>
-      <a href="/budget/user/<%= user.id %>">View Budget Summary</a>
-    </button>
+      <button>
+        <a href="/budget/user/<%= user.id %>">View Budget Summary</a>
+      </button>
+    </main>
 
-    <%- include('./partials/footer.ejs') %>
+    <footer><%- include('./partials/footer.ejs') %></footer>
 
     <script>
       async function logout(e) {

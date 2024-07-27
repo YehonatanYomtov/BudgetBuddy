@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/global-styles.css" />
+    <link rel="stylesheet" href="/css/budget-summary.css" />
     <title><%= title %></title>
-</head>
-<body>
-    <h1><%= title %></h1>
+  </head>
+  <body>
+    <header><%- include('./partials/navbar.ejs') %></header>
 
-    <p>Total Income: ₪<%= incomes %></p>
-    <p>Total Expense: ₪<%= expenses %></p>
-    <p>Total Balance: ₪<%= balance %></p>
-</body>
+    <main>
+      <%- include('./partials/backButton.ejs') %>
+      <h1><%= title %></h1>
+
+      <p>Total Income: ₪<%= incomes %></p>
+      <p>Total Expense: ₪<%= expenses %></p>
+      <p>Total Balance: ₪<%= balance %></p>
+    </main>
+
+    <footer><%- include('./partials/footer.ejs') %></footer>
+  </body>
 </html>
