@@ -1,11 +1,10 @@
 <nav>
   <ul>
+    <a href="/" id="logo"><i class="fa-solid fa-money-check-dollar"></i></a>
+
     <li><a href="/">Home</a></li>
     <li>
-      <a href="/users/profile/<%= typeof user !== 'undefined' ? user.id : '' %>"
-        >Profile</a
-      >
+      <a href="/users/profile/<%= user ? user.id : 'undefined' %>">Profile</a>
     </li>
-    <li><a href="/about">About</a></li>
   </ul>
 </nav>

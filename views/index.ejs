@@ -3,19 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
     <link rel="stylesheet" href="/css/global-styles.css" />
     <link rel="stylesheet" href="/css/index.css" />
     <script src="/js/index.js"></script>
     <title>Home</title>
   </head>
   <body>
-    <%- include('./partials/navbar.ejs') %>
+    <header><%- include('./partials/navbar.ejs') %></header>
+    <main>
+      <h1>Home</h1>
 
-    <h1>-- Home --</h1>
+      <h2>Welcome <%= user.username %></h2>
+    </main>
 
-    <h2>Welcome <%= user.username %></h2>
+    <article>
+      BudgetBuddy is a Budget Management system that simplifies budget
+      management and lets you see all your transactions in one simple app. Our
+      app can help you keep track of your money, see where it's being spent the
+      most, see your current balance and easily access all of your data.
+      Features: - Category management - Transaction management - Transaction
+      sorting functionality - Currency conversion functionality - Secured user
+      authentication system - Budget summary All in one simple to use- app. Let
+      BudgetBuddy be your best buddy Start using it today!
+    </article>
 
-    <%- include('./partials/footer.ejs') %>
+    <footer><%- include('./partials/footer.ejs') %></footer>
   </body>
 </html>

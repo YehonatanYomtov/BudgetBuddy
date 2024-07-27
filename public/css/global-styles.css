@@ -1,4 +1,9 @@
 :root {
+  --color-main: #1dcfb3;
+  --clr-hover-white: rgb(249, 249, 249);
+  --box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  --box-shadow-2: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
 * {
@@ -12,8 +17,79 @@ body {
   min-height: 100vh;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+}
+
+header {
+  width: 100%;
+
+  nav {
+    height: 3.5rem;
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 2rem;
+    box-shadow: var(--box-shadow);
+
+    #logo {
+      i {
+        color: var(--color-main);
+        font-size: 2rem;
+      }
+    }
+
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      li {
+        list-style-type: none;
+
+        a {
+          text-decoration: none;
+          padding: 1rem 1.6rem;
+          color: var(--color-main);
+          font-size: 1.2rem;
+
+          &:hover {
+            background-color: var(--clr-hover-white);
+            border-bottom: 2px solid var(--color-main);
+          }
+        }
+      }
+    }
+  }
+}
+
+h1 {
+  text-align: center;
+  color: var(--color-main);
+  font-size: 2.3rem;
+}
+
+h2 {
+  color: rgb(108, 108, 108);
+}
+
+#back-button {
+  position: absolute;
+  top: 5rem;
+  left: 4rem;
+}
+
+input {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--box-shadow);
+
+  color: rgb(98, 98, 98);
 }
 
 input::placeholder {
@@ -29,6 +105,47 @@ input:-webkit-autofill:active {
 }
 
 input:focus {
-  background-color: #162e41;
+  /* background-color: #162e41; */
   outline: none;
+}
+
+button {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.4rem;
+  border-radius: 0.8rem;
+  border: none;
+  width: fit-content;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: var(--box-shadow-2);
+  background-color: white;
+  color: var(--color-main);
+
+  &:hover {
+    background-color: var(--clr-hover-white);
+  }
+}
+
+footer {
+  position: absolute;
+  bottom: 0.3rem;
+  width: 100%;
+  text-align: center;
+  color: rgb(137, 137, 137);
+}
+
+.delete-btn {
+  border-radius: 100%;
+  color: rgb(255, 99, 99);
+  padding: 0.2em 0.5rem;
+
+  box-shadow: var(--box-shadow-2);
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
 }

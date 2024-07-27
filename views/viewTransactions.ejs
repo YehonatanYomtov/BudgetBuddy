@@ -1,92 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/global-styles.css" />
+    <link rel="stylesheet" href="/css/viewTransactions.css" />
     <title><%= title %></title>
-    <style>
-        .income {
-            color: green;
-        }
-        .expense {
-            color: red;
-        }
-    </style>
-</head>
-<body>
-    <h1><%= title %></h1>
-    
-    <h2>Add New Transaction:</h2>
-    <form id="addTransactionForm" style="display:flex; flex-direction:column; max-width: 300px;">
-        <input type="hidden" name="user_id" value="<%= user_id %>">
+  </head>
+  <body>
+    <header><%- include('./partials/navbar.ejs') %></header>
+
+    <main>
+      <%- include('./partials/backButton.ejs') %>
+
+      <h1><%= title %></h1>
+
+      <h2>Add New Transaction:</h2>
+      <form
+        id="addTransactionForm"
+        style="display: flex; flex-direction: column; max-width: 300px"
+      >
+        <input type="hidden" name="user_id" value="<%= user_id %>" />
         <label for="transactionAmount">Amount:</label>
-        <input type="text" id="transactionAmount" name="amount" required>
-        
+        <input type="text" id="transactionAmount" name="amount" required />
+
         <label for="currencySelect">Currency:</label>
         <select id="currencySelect" name="currencySelect" required>
-            <option value="ILS">ILS <span class="conversionRate"></span></option>
-            <option value="USD">USD <span class="conversionRate"></span></option>
-            <option value="EUR">EUR <span class="conversionRate"></span></option>
-            <option value="GBP">GBP <span class="conversionRate"></span></option>
+          <option value="ILS">ILS <span class="conversionRate"></span></option>
+          <option value="USD">USD <span class="conversionRate"></span></option>
+          <option value="EUR">EUR <span class="conversionRate"></span></option>
+          <option value="GBP">GBP <span class="conversionRate"></span></option>
         </select>
 
         <label for="transactionDescription">Description:</label>
-        <input type="text" id="transactionDescription" name="description" required>
-        
+        <input
+          type="text"
+          id="transactionDescription"
+          name="description"
+          required
+        />
+
         <label for="dateOption">Date:</label>
         <select id="dateOption" name="dateOption" required>
-            <option value="today">Today</option>
-            <option value="choose">Choose a date</option>
+          <option value="today">Today</option>
+          <option value="choose">Choose a date</option>
         </select>
 
-        <input type="date" id="transactionDate" name="transaction_date" style="display:none;" required>
+        <input
+          type="date"
+          id="transactionDate"
+          name="transaction_date"
+          style="display: none"
+          required
+        />
 
         <label for="transactionCategory">Category:</label>
         <select id="transactionCategory" name="category_id">
-            <% categories.forEach(category => { %>
-                <option value="<%= category.id %>"><%= category.name %></option>
-            <% }) %>
+          <% categories.forEach(category => { %>
+          <option value="<%= category.id %>"><%= category.name %></option>
+          <% }) %>
         </select>
         <label for="transactionType">Type:</label>
         <select name="type" id="transactionType">
-            <option value="expense">Expense</option>
-            <option value="income">Income</option>
+          <option value="expense">Expense</option>
+          <option value="income">Income</option>
         </select>
         <div>
-            <button id="addTransactionBtn" type="submit">Add Transaction</button>
+          <button id="addTransactionBtn" type="submit">Add Transaction</button>
         </div>
-    </form>
+      </form>
 
-    <p id="addTransactionError" style="display:'none'; color:red;"></p>
+      <p id="addTransactionError" style="display: 'none'; color: red"></p>
 
-    <br>
-    <h2>Your transactions:</h2>
-    <table style="border-collapse: collapse; border: 1px solid black;">
+      <br />
+      <h2>Your transactions:</h2>
+      <table style="border-collapse: collapse; border: 1px solid black">
         <thead>
-            <tr>
-                <th><a href="?sort_by=amount&sort_order=desc">Amount</a></th>
-                <th><a href="?sort_by=description&sort_order=asc">Description</a></th>
-                <th><a href="?sort_by=transaction_date&sort_order=asc">Date</a></th>
-                <th><a href="?sort_by=category_id&sort_order=asc">Category</a></th>
-                <th><a href="?sort_by=type&sort_order=asc">Type</a></th>
-            </tr>
+          <tr>
+            <th><a href="?sort_by=amount&sort_order=desc">Amount</a></th>
+            <th>
+              <a href="?sort_by=description&sort_order=asc">Description</a>
+            </th>
+            <th><a href="?sort_by=transaction_date&sort_order=asc">Date</a></th>
+            <th><a href="?sort_by=category_id&sort_order=asc">Category</a></th>
+            <th><a href="?sort_by=type&sort_order=asc">Type</a></th>
+          </tr>
         </thead>
         <tbody id="transactionsList">
-            <% transactions.forEach(transaction => { %>
-                <tr id="transaction-<%= transaction.id %>">
-                    <td><%= transaction.amount %></td>
-                    <td><%= transaction.description %></td>
-                    <td><%= transaction.transaction_date %></td>
-                    <td><%= transaction.category_name %></td>
-                    <td class="<%= transaction.type === 'income' ? 'income' : 'expense' %>"><%= transaction.type %></td>
-                    <td>
-                        <button class="delete-btn" data-id="<%= transaction.id %>" user-id="<%= user_id %>">x</button>
-                    </td>
-                </tr>
-            <% }) %>
+          <% transactions.forEach(transaction => { %>
+          <tr id="transaction-<%= transaction.id %>">
+            <td><%= transaction.amount %></td>
+            <td><%= transaction.description %></td>
+            <td><%= transaction.transaction_date %></td>
+            <td><%= transaction.category_name %></td>
+            <td
+              class="<%= transaction.type === 'income' ? 'income' : 'expense' %>"
+            >
+              <%= transaction.type %>
+            </td>
+            <td>
+              <button
+                class="delete-btn"
+                data-id="<%= transaction.id %>"
+                user-id="<%= user_id %>"
+              >
+                x
+              </button>
+            </td>
+          </tr>
+          <% }) %>
         </tbody>
-    </table>
+      </table>
+    </main>
+
+    <footer><%- include('./partials/footer.ejs') %></footer>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/js/transactions.js"></script>
-</body>
+  </body>
 </html>

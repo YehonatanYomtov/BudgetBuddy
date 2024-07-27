@@ -13,22 +13,24 @@
     <title>Register</title>
   </head>
   <body>
-    <h1>Login</h1>
+    <main>
+      <h1>Login</h1>
 
-    <form id="login-form" class="form-container">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required />
+      <form id="login-form" class="form-container">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required />
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
 
-      <button id="login-btn" type="submit">Login</button>
-    </form>
+        <button id="login-btn" type="submit">Login</button>
+      </form>
 
-    <div>Don't have an account? <a href="/register">Register here</a></div>
+      <div>Don't have an account? <a href="/register">Register here</a></div>
 
-    <div id="response-display"><%= error %></div>
+      <div id="response-display"><%= error %></div>
+    </main>
 
-    <%- include('./partials/footer.ejs') %>
+    <footer><%- include('./partials/footer.ejs') %></footer>
   </body>
 </html>

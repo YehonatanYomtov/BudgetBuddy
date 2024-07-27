@@ -1,0 +1,7 @@
+main {
+  border-radius: 1rem;
+  box-shadow: var(--box-shadow);
+  padding: 1.5rem;
+  height: 30rem;
+  width: 30rem;
+}
