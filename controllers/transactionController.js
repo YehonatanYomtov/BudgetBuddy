@@ -1,21 +1,15 @@
 const {Transaction} = require('../models/transactionModel.js');
 const {Category} = require('../models/categoryModel.js');
-
-const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${day}-${month}-${year}`;
-
-}
+const {formatDate} = require('../utils/transactionUtils.js')
 
 const getTransactionsByUserId = async (req,res) => {
     const {user_id} = req.params;
+    const {sort_by, sort_order} = req.query;
     const error = req.session.error;
     req.session.error = null; // Clear the error after reading it
 
     try{
-        const unformattedTransactions = await Transaction.getAll(user_id);
+        const unformattedTransactions = await Transaction.getAll(user_id,sort_by, sort_order);
 
         const transactions = unformattedTransactions.map(transaction => {
             return {...transaction, transaction_date: formatDate(transaction.transaction_date)}
@@ -35,41 +29,40 @@ const getTransactionsByUserId = async (req,res) => {
 };
 
 const createTransaction = async (req,res) => {
-    const {amount, description, transaction_date, category_id,user_id,type} = req.body;
-    const transaction = {user_id, amount, description, transaction_date, category_id, type};
-
-    let error = null;
-
-    if (!category_id || isNaN(category_id)) {
-        error = 'Invalid category ID' ;
-    }
-
-    else if (isNaN(Number(amount))){
-        error = 'Amount must be a number';
-    }
-
-    if(error){
-        req.session.error = error;
-        return res.redirect(`/transactions/user/${user_id}`);
-    }
+    const {amount, description, transaction_date, category_id,type, user_id} = req.body;
+    const transaction = {
+        amount, 
+        description, 
+        transaction_date, 
+        category_id, 
+        type,
+        user_id,
+    };
     
     try{
-        await Transaction.create(transaction);
-        res.redirect(`/transactions/user/${user_id}`);
+        const unupdatedTransaction = await Transaction.create(transaction);
+        const categoryResult = await Category.getCategoryNameById(unupdatedTransaction[0].category_id);
+        const categoryName = categoryResult.name
+        const newTransaction = [{
+            ...unupdatedTransaction[0], 
+            category_name: categoryName, 
+            transaction_date: formatDate(unupdatedTransaction[0].transaction_date)
+        }];
+        
+        res.status(200).json({success: true, transaction: newTransaction});
 
     } catch(err){
-        console.log(err);
-        res.status(500).json({error: 'Error creating transaction'}) 
+        console.log('Error adding transaction:', err);
+        res.status(500).json({success: false, error: 'Error adding transaction'}) 
     }
 };
 
 const deleteTransaction = async(req,res) => {
     const {id} = req.params;
-    const {user_id} = req.body;
 
     try{
         await Transaction.delete(id);
-        res.redirect(`/transactions/user/${user_id}`);
+        res.status(200).json({success: true, id});
     }catch (error) {
         res.status(500).json({ error: 'Error deleting transaction' });
     }

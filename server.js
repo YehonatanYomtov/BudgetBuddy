@@ -51,7 +51,7 @@ const { checkUser } = require("./middlewares/authMiddleware.js");
 // Protected routes
 const userRoutes = require("./routes/userRoutes.js");
 const categoryRoutes = require("./routes/categoryRoutes.js");
-const transactionRoutes = require("./routes/transactionRoutes.js");
+const transactionRoutes = require("./routes/transactionRoutes.js")
 const budgetRoutes = require("./routes/budgetRoutes.js");
 
 // Protection for all proceeding routes
@@ -65,8 +65,8 @@ app.use("/budget", budgetRoutes);
 // Home page
 app.get("/", (req, res) => res.render("index", { user: req.session.user }));
 
-// API key for currency conversion
-app.get("/api/get-api-key", (req, res) => {
+// API key for currency conversion (protected)
+app.get('/api/get-api-key', (req, res) => {
   res.json({ apiKey: process.env.EXCHANGE_RATE_API_KEY });
 });
 

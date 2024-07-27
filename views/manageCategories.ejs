@@ -11,31 +11,29 @@
 
     <h1><%= title %></h1>
 
-    <form id="addCategoryForm" action="/categories" method="POST">
+    <form id="addCategoryForm">
       <input type="hidden" name="user_id" value="<%= user_id %>" />
       <label for="categoryName">Add New Category:</label>
       <input type="text" id="categoryName" name="name" required />
-      <button type="submit">Add</button>
+      <button id="addCategoryBtn" type="submit">Add</button>
     </form>
+
+    <p id="addCategoryError" style="display:'none'; color:red;"></p>
 
     <h2>Existing Categories:</h2>
     <ul id="categoriesList">
       <% categories.forEach(category => { %>
-      <li>
+      <li id="category-<%= category.id %>">
+        <button class="delete-btn" data-id="<%= category.id %>" user-id="<%= user_id %>">x</button>
         <%= category.name %>
-        <form
-          action="/categories/delete/<%= category.id %>"
-          method="POST"
-          style="display: inline"
-        >
-          <input type="hidden" name="user_id" value="<%= user_id %>" />
-          <button type="submit">Delete</button>
-        </form>
+
       </li>
       <% }) %>
     </ul>
-
-    <!-- <script src="/js/categories.js"></script> -->
+    
     <%- include('./partials/footer.ejs') %>
-  </body>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/categories.js"></script>
+</body>
 </html>
