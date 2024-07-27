@@ -28,15 +28,20 @@ async function register(req, res) {
     const existingUserByName = await _findUserByUsername(username);
     const existingUserByEmail = await _findUserByEmail(email);
 
-    if (existingUserByName)
-      return res.status(400).render("register", {
-        error: "Username already exists.",
-      });
+    if (existingUserByName) {
+      if (existingUserByEmail) {
+        return res
+          .status(400)
+          .json({ error: "Username and Email already taken." });
+      } else {
+        return res.status(400).json({
+          error: "Username already taken.",
+        });
+      }
+    }
 
     if (existingUserByEmail)
-      return res.status(400).render("register", {
-        error: "Email already exists.",
-      });
+      return res.status(400).json({ error: "Email already taken." });
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -51,7 +56,7 @@ async function register(req, res) {
     res.status(201).redirect("/");
   } catch (err) {
     console.error(`Error registering user: ${err.message}`);
-    res.status(500).render("register", {
+    res.status(500).json({
       error: "Internal Server Error.",
     });
   }

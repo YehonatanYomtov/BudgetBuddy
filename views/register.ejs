@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/global-styles.css" />
     <link rel="stylesheet" href="/css/register.css" />
+    <script src="/js/register.js" defer></script>
     <title>Register</title>
   </head>
   <body>
@@ -19,7 +25,7 @@
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" required />
 
-      <button type="submit">Register</button>
+      <button id="submit-btn" type="submit">Register</button>
     </form>
 
     <div>Already have an account? <a href="/login">Login here</a></div>
@@ -27,7 +33,5 @@
     <div id="response-display"></div>
 
     <%-include('./partials/footer.ejs') %>
-
-    <script src="/js/register.js"></script>
   </body>
 </html>

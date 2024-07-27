@@ -1,7 +1,21 @@
-<%- include('./partials/navbar.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<h1>-- Home --</h1>
+    <link rel="stylesheet" href="/css/global-styles.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <script src="/js/index.js"></script>
+    <title>Home</title>
+  </head>
+  <body>
+    <%- include('./partials/navbar.ejs') %>
 
-<h2>Welcome <%= user.username %></h2>
+    <h1>-- Home --</h1>
 
-<%- include('./partials/footer.ejs') %>
+    <h2>Welcome <%= user.username %></h2>
+
+    <%- include('./partials/footer.ejs') %>
+  </body>
+</html>

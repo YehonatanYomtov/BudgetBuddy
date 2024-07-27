@@ -1,3 +1,6 @@
+:root {
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,9 +11,24 @@
 body {
   min-height: 100vh;
   width: 100%;
-  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#register-form {
-  background-color: aquamarine;
+input::placeholder {
+  /* color: rgb(0, 183, 0); */
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s;
+  -webkit-text-fill-color: #fff !important;
+}
+
+input:focus {
+  background-color: #162e41;
+  outline: none;
 }

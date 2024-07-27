@@ -1,6 +1,18 @@
-//! Disable submit (login/register) button until all inputs are filled
+// const {
+//   checkAllInputsIfFilled,
+// } = require("../../utils/checkAllInputsIfFilled.js");
 
 const registerForm = document.getElementById("register-form");
+const responseDisplay = document.getElementById("response-display");
+
+// checkAllInputsIfFilled("submit-btn");
+
+//* Can place in a util function
+const loadingSpinner = `
+<div class="fa-3x">
+  <i class="fa-solid fa-cog fa-spin"></i>
+</div>
+`;
 
 registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -18,18 +30,21 @@ registerForm.addEventListener("submit", async (e) => {
   };
 
   try {
+    responseDisplay.innerHTML = loadingSpinner;
+
     const res = await fetch("/register", options);
     if (res.ok) {
       window.location.href = "/";
     } else {
       const data = await res.json();
-      document.getElementById("response-display").innerText =
-        data.error || "Registration failed";
+      responseDisplay.innerText = data.error || "Registration failed";
     }
   } catch (err) {
     console.error(err);
-    document.getElementById(
-      "response-display"
-    ).innerText = `An error occurred ${err.message}`;
+    responseDisplay.innerHTML = `An error occurred ${err.message}`;
   }
+
+  //Check if needed
+  //* Can place in a util function
+  document.querySelectorAll("input").forEach((input) => (input.value = ""));
 });
