@@ -1,10 +1,11 @@
 const db = require('../config/db.js');
 
 const Transaction = {
-    getAll: async (user_id) => {
+    getAll: async (user_id, sort_by='transaction_date', sort_order='desc') => {
         return await db('transactions')
             .join('categories', 'transactions.category_id', '=', 'categories.id')
             .where('transactions.user_id', user_id)
+            .orderBy(sort_by,sort_order)
             .select(
                 'transactions.id',
                 'transactions.amount',

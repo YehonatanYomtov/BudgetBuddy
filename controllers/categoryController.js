@@ -17,23 +17,22 @@ const getCategoriesByUserId = async (req, res) => {
 
 const createCategory = async (req, res) => {
   const { name, user_id } = req.body;
-  console.log("REQ.BODY: ", req.body);
 
   try {
-    await Category.create({ name, user_id });
-    res.redirect(`/categories/user/${user_id}`);
+    const newCategory = await Category.create({ name, user_id });
+    res.status(200).json({success: true, category: newCategory});
+    //res.redirect(`/categories/user/${user_id}`);
   } catch (error) {
-    res.status(500).json({ error: "Error creating category" });
+    res.status(500).json({success: false, error: 'Error adding category'}) 
   }
 };
 
 const deleteCategory = async (req, res) => {
   const { id } = req.params;
-  const { user_id } = req.body;
 
   try {
     await Category.delete(id);
-    res.redirect(`/categories/user/${user_id}`);
+    res.status(200).json({success: true, id});
   } catch (error) {
     res.status(500).json({ error: "Error deleting category" });
   }
