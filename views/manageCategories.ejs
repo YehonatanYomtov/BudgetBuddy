@@ -6,6 +6,9 @@
     <title><%= title %></title>
   </head>
   <body>
+    <%- include('./partials/navbar.ejs') %> <%-
+    include('./partials/backButton.ejs') %>
+
     <h1><%= title %></h1>
 
     <form id="addCategoryForm" action="/categories" method="POST">
@@ -33,5 +36,6 @@
     </ul>
 
     <!-- <script src="/js/categories.js"></script> -->
-</body>
+    <%- include('./partials/footer.ejs') %>
+  </body>
 </html>

@@ -32,7 +32,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       secure: process.env.NODE_ENV === "production",
-      maxAge: 3600000, // Session expiration time (1 hour)
+      maxAge: 24 * 60 * 60 * 1000, // Session expiration time (24 hours)
     },
   })
 );
@@ -52,15 +52,23 @@ const { checkUser } = require("./middlewares/authMiddleware.js");
 const userRoutes = require("./routes/userRoutes.js");
 const categoryRoutes = require("./routes/categoryRoutes.js");
 const transactionRoutes = require("./routes/transactionRoutes.js");
+const budgetRoutes = require("./routes/budgetRoutes.js");
 
+// Protection for all proceeding routes
 app.use(checkUser);
 
 app.use("/users", userRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/transactions", transactionRoutes);
+app.use("/budget", budgetRoutes);
 
-// Home page (protected)
+// Home page
 app.get("/", (req, res) => res.render("index", { user: req.session.user }));
+
+// API key for currency conversion
+app.get("/api/get-api-key", (req, res) => {
+  res.json({ apiKey: process.env.EXCHANGE_RATE_API_KEY });
+});
 
 // Server setup
 const port = process.env.PORT || 3000;
