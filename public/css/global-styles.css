@@ -1,5 +1,6 @@
 :root {
   --color-main: #1dcfb3;
+  --color-main-hover: #1bc2a9;
   --clr-hover-white: rgb(249, 249, 249);
   --box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   --box-shadow-2: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
@@ -10,15 +11,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "Josefin Sans", sans-serif;
 }
 
 body {
+  position: relative;
   min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -67,6 +68,12 @@ header {
   }
 }
 
+main {
+  border-radius: 1rem;
+  box-shadow: var(--box-shadow);
+  padding: 4rem;
+}
+
 h1 {
   text-align: center;
   color: var(--color-main);
@@ -83,17 +90,18 @@ h2 {
   left: 4rem;
 }
 
+label {
+  color: rgb(109, 109, 109);
+  font-size: 1.2rem;
+}
+
 input {
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   box-shadow: var(--box-shadow);
-
+  font-size: 1.2rem;
   color: rgb(98, 98, 98);
-}
-
-input::placeholder {
-  /* color: rgb(0, 183, 0); */
 }
 
 input:-webkit-autofill,
@@ -101,11 +109,10 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s;
-  -webkit-text-fill-color: #fff !important;
+  -webkit-text-fill-color: rgb(95, 95, 95) !important;
 }
 
 input:focus {
-  /* background-color: #162e41; */
   outline: none;
 }
 
@@ -127,11 +134,13 @@ button {
 }
 
 footer {
-  position: absolute;
-  bottom: 0.3rem;
+  position: fixed;
+  padding: 1rem 0;
+  bottom: 0;
   width: 100%;
   text-align: center;
   color: rgb(137, 137, 137);
+  background-color: rgb(237, 237, 237);
 }
 
 .delete-btn {
@@ -148,4 +157,13 @@ a {
 
 li {
   list-style-type: none;
+}
+
+i {
+  color: var(--color-main);
+}
+
+#response-display {
+  margin-top: 1.5rem;
+  color: red;
 }

@@ -7,20 +7,26 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/css/global-styles.css" />
     <link rel="stylesheet" href="/css/budget-summary.css" />
     <title><%= title %></title>
   </head>
   <body>
     <header><%- include('./partials/navbar.ejs') %></header>
+    <%- include('./partials/backButton.ejs') %>
 
     <main>
-      <%- include('./partials/backButton.ejs') %>
       <h1><%= title %></h1>
 
-      <p>Total Income: ₪<%= incomes %></p>
-      <p>Total Expense: ₪<%= expenses %></p>
-      <p>Total Balance: ₪<%= balance %></p>
+      <p><span>Total Income:</span> ₪<%= incomes %></p>
+      <p><span>Total Expense:</span> ₪<%= expenses %></p>
+      <p><span>Total Balance:</span> ₪<%= balance %></p>
     </main>
 
     <footer><%- include('./partials/footer.ejs') %></footer>
