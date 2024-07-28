@@ -1,11 +1,5 @@
-// const {
-//   checkAllInputsIfFilled,
-// } = require("../../utils/checkAllInputsIfFilled.js");
-
 const loginForm = document.getElementById("login-form");
 const responseDisplay = document.getElementById("response-display");
-
-// checkAllInputsIfFilled("login-btn");
 
 //* Can place in a util function
 const loadingSpinner = `
@@ -43,7 +37,5 @@ loginForm.addEventListener("submit", async (e) => {
     responseDisplay.innerHTML = err.message;
   }
 
-  //Check if needed
-  //* Can place in a util function
   document.querySelectorAll("input").forEach((input) => (input.value = ""));
 });

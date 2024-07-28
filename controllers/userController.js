@@ -11,18 +11,8 @@ const {
   _getProfileInfo,
 } = require("../models/userModel.js");
 
-//! Add confirm password (to lower case etc.)
-//! Create an array for errors and then display them
-//! reject password that is shorter then 6 characters
-
 async function register(req, res) {
   const { username, email, password } = req.body;
-
-  if (!username || !email || !password) {
-    return res.status(400).render("register", {
-      error: "All fields are required.",
-    });
-  }
 
   try {
     const existingUserByName = await _findUserByUsername(username);
@@ -164,6 +154,7 @@ async function getProfileInfo(req, res) {
       return res.status(404).json({ error: "Profile doesn't exist." });
     }
 
+    //* Can place in a util function
     const createdAt = new Date(userInfo.created_at);
     const year = createdAt.getFullYear();
     const month = String(createdAt.getMonth() + 1).padStart(2, "0");
