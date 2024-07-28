@@ -20,10 +20,10 @@ const createCategory = async (req, res) => {
 
   try {
     const newCategory = await Category.create({ name, user_id });
-    res.status(200).json({success: true, category: newCategory});
+    res.status(200).json({ success: true, category: newCategory });
     //res.redirect(`/categories/user/${user_id}`);
   } catch (error) {
-    res.status(500).json({success: false, error: 'Error adding category'}) 
+    res.status(500).json({ success: false, error: "Error adding category" });
   }
 };
 
@@ -32,7 +32,7 @@ const deleteCategory = async (req, res) => {
 
   try {
     await Category.delete(id);
-    res.status(200).json({success: true, id});
+    res.status(200).json({ success: true, id });
   } catch (error) {
     res.status(500).json({ error: "Error deleting category" });
   }
