@@ -7,6 +7,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/css/global-styles.css" />
     <link rel="stylesheet" href="/css/index.css" />
     <script src="/js/index.js"></script>
@@ -15,22 +21,33 @@
   <body>
     <header><%- include('./partials/navbar.ejs') %></header>
     <main>
-      <h1>Home</h1>
+      <h1>
+        <span>Welcome <%= user.username %> to</span> <br />
+        BudgetBuddy
+      </h1>
 
-      <h2>Welcome <%= user.username %></h2>
+      <article>
+        <p class="main-text">
+          BudgetBuddy is a Budget Management system that simplifies budget
+          management and lets you see all your transactions in one simple app.
+          Our app can help you keep track of your money, see where it's being
+          spent the most, see your current balance and easily access all of your
+          data. Features:
+        </p>
+
+        <li><span>👉 </span>Category management</li>
+        <li><span>👉 </span>Transaction management</li>
+        <li><span>👉 </span>Transaction sorting functionality</li>
+        <li><span>👉 </span>Currency conversion functionality</li>
+        <li><span>👉 </span>Secured user authentication system</li>
+        <li><span>👉 </span>Budget summary</li>
+
+        <p>
+          All in one simple to use- app. Let BudgetBuddy be your best buddy
+          Start using it today!
+        </p>
+      </article>
     </main>
-
-    <article>
-      BudgetBuddy is a Budget Management system that simplifies budget
-      management and lets you see all your transactions in one simple app. Our
-      app can help you keep track of your money, see where it's being spent the
-      most, see your current balance and easily access all of your data.
-      Features: - Category management - Transaction management - Transaction
-      sorting functionality - Currency conversion functionality - Secured user
-      authentication system - Budget summary All in one simple to use- app. Let
-      BudgetBuddy be your best buddy Start using it today!
-    </article>
-
     <footer><%- include('./partials/footer.ejs') %></footer>
   </body>
 </html>

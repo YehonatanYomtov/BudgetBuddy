@@ -1,7 +1,58 @@
 main {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 40vh;
+  gap: 2rem;
   border-radius: 1rem;
   box-shadow: var(--box-shadow);
-  padding: 1.5rem;
-  height: 30rem;
-  width: 30rem;
+  padding: 3rem;
+  background-color: white;
+  width: 100%;
+  max-width: 670px;
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+#addCategoryForm {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  input {
+    padding: 0.6rem;
+    width: 16rem;
+    font-size: 1.2rem;
+  }
+
+  button {
+    margin: 0;
+    padding: 0.7rem 1rem;
+  }
+}
+
+h2 {
+  margin-bottom: -1rem;
+}
+
+ul {
+  text-align: start;
+  width: 15rem;
+
+  li {
+    position: relative;
+    font-size: 1.2rem;
+    color: rgb(103, 103, 103);
+
+    button {
+      position: relative;
+      bottom: 0.2rem;
+    }
+  }
 }

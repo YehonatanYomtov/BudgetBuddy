@@ -7,21 +7,27 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/css/global-styles.css" />
     <link rel="stylesheet" href="/css/viewTransactions.css" />
     <title><%= title %></title>
   </head>
   <body>
     <header><%- include('./partials/navbar.ejs') %></header>
+    <%- include('./partials/backButton.ejs') %>
 
-    <main>
-      <%- include('./partials/backButton.ejs') %>
-
+    <main class="main-content">
       <h1><%= title %></h1>
 
       <h2>Add New Transaction:</h2>
       <form
         id="addTransactionForm"
+        class="transaction-form"
         style="display: flex; flex-direction: column; max-width: 300px"
       >
         <input type="hidden" name="user_id" value="<%= user_id %>" />
@@ -78,7 +84,10 @@
 
       <br />
       <h2>Your transactions:</h2>
-      <table style="border-collapse: collapse; border: 1px solid black">
+      <table
+        class="transactions-table"
+        style="border-collapse: collapse; border: 1px solid black"
+      >
         <thead>
           <tr>
             <th><a href="?sort_by=amount&sort_order=desc">Amount</a></th>
@@ -88,6 +97,7 @@
             <th><a href="?sort_by=transaction_date&sort_order=asc">Date</a></th>
             <th><a href="?sort_by=category_id&sort_order=asc">Category</a></th>
             <th><a href="?sort_by=type&sort_order=asc">Type</a></th>
+            <th></th>
           </tr>
         </thead>
         <tbody id="transactionsList">
